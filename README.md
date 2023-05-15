@@ -1,18 +1,21 @@
 # black-friday-sale
 
-Dataset History
+# Dataset History
 A retail company “ABC Private Limited” wants to understand the customer purchase behavior (specifically, purchase amount) against various products of different categories. They have shared purchase summaries of various customers for selected high-volume products from last month.
 The data set also contains customer demographics (age, gender, marital status, city type, stayincurrentcity), product details (productid and product category), and Total purchase amount from last month.
 Now, they want to build a model to predict the purchase amount of customers against various products which will help them to create a personalized offer for customers against different products.
-Tasks to perform
+
+# Tasks to perform
 The purchase col column is the Target Variable, perform Univariate Analysis and Bivariate Analysis w.r.t the Purchase.
 Masked in the column description means already converted from categorical value to numerical column.
 Below mentioned points are just given to get you started with the dataset, not mandatory to follow the same sequence.
-DATA PREPROCESSING
+
+# DATA PREPROCESSING
 •	Check basic statistics of the dataset
 •	Check for missing values in the data
 •	Check for unique values in data
-Perform EDA
+
+# Perform EDA
 •	Purchase Distribution
 •	Check for outliers
 •	Analysis by Gender, Marital Status, occupation, occupation vs purchase, purchase by city, purchase by age group, etc
@@ -22,7 +25,8 @@ Perform EDA
 •	Rename columns
 •	Fill nan values
 •	Map range variables into integers (e.g 'Age' column)
-Data Visualisation
+
+# Data Visualisation
 •	visualize an individual column
 •	Age vs Purchased
 •	Occupation vs Purchased
