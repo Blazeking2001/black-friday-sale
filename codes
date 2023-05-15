@@ -1,0 +1,156 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+data = pd.read_csv("train.csv")
+data.head()
+
+# Check its basic statistics, missing values, and unique values.
+data.shape()
+data.info()
+data.describe()
+data.isna().sum()
+data.nunique()
+data.duplicated().sum()
+
+# Data Cleaning
+mean_pc2 = data["Product_Category_2"].mean()
+data["Product_Category_2"] = data["Product_Category_2"].fillna(mean_pc2, inplace = True)
+data["Product_Category_2"] 
+
+data['Product_Category_2'] = data['Product_Category_2'].fillna('0')
+data['Product_Category_3'] = data['Product_Category_3'].fillna('0')
+data.isnull().sum()
+
+data.dtypes
+data["Product_Category_2"] = data["Product_Category_2"].astype(int)
+data["Product_Category_3"] = data["Product_Category_3"].astype(int)
+data.dtypes
+
+# Purchase Distribution
+plt.figure(figsize=(7,5))
+sns.histplot(x = data["Purchase"], kde=True)
+plt.title("purchase distribution")
+plt.show()
+
+# Check for Outliers
+plt.figure(figsize=(7,5))
+sns.stripplot(x = data["Purchase"])
+plt.title('Check for Outliers')
+plt.show()
+
+# Analysis by Gender, Marital Status, occupation, occupation vs purchase, purchase by city, purchase by age group, etc
+plt.figure(figsize=(7,5))
+sns.stripplot(x = data['Gender'], y = data['Purchase'])
+plt.title('Analysis by Gender')
+plt.show()
+
+plt.figure(figsize=(7,5))
+sns.stripplot(x = data['City_Category'], y = data['Purchase'])
+plt.title('Analysis by city')
+plt.show()
+
+plt.figure(figsize=(7,5))
+sns.stripplot(x = data['Marital_Status'], y = data['Purchase'])
+plt.title('Analysis by Marital Status')
+plt.show()
+
+sns.stripplot(x=data["Occupation"], y=data["Purchase"])
+plt.show()
+
+
+## Drop unnecessary fields -> After Visualiation
+
+# Convert categorical data into integer using map function
+data.head()
+data['Gender'].unique()
+data['City_Category'].unique()
+
+data['Gender'] = data['Gender'].map({"F":0, "M":1}).astype(int)
+data['City_Category'] = data['City_Category'].map({"A":0, "B":1, "C":2}).astype(int)
+data.head()
+
+# Fill missing values
+data.isna()
+data.fillna(0, inplace = True)
+
+# Rename columns
+data.rename(columns={'Product_Category_1':'pd_cat1','Product_Category_2':'pd_cat2','Product_Category_3':'pd_cat3'},inplace=True)
+data.head()
+
+# Map range variables into integers
+data['Age'] = data['Age'].map({'0-17': 0, '18-25': 1, '26-35': 2, '36-45': 3, '46-50': 4, '51-55': 5, '55+': 6} ).astype(int)
+data.head()
+
+
+## Data Visualisation
+
+# Visualize an individual column
+plt.figure()
+sns.histplot(data['Age'], kde=True).set_xticklabels([ '0', '0-17', '18-25', '26-35', '36-45', '46-50', '51-55', '55+'])
+plt.title('Visualize an individual column')
+plt.show()
+
+# Age VS Purchased
+plt.figure()
+sns.boxplot(x = df['Age'], y = df['Purchase']).set_xticklabels([ '0-17', '18-25', '26-35', '36-45', '46-50', '51-55', '55+' ])
+plt.title('Age vs Purchased')
+plt.show()
+
+# Occupation VS Purchased
+sns.boxplot(x=df["Occupation"], y=df["Purchase"])
+plt.show()
+
+# Productcategory1 VS Purchased
+plt.figure()
+sns.boxplot(x = df['pd_cat1'], y = df['Purchase'])
+plt.title('Product_category_1 vs Purchased')
+plt.show()
+
+# Product_category_2 vs Purchased
+plt.figure()
+sns.boxplot(x = df['pd_cat2'], y = df['Purchase'])
+plt.title('Product_category_2 vs Purchased')
+plt.show()
+
+# Product_category_3 vs Purchased
+plt.figure()
+sns.boxplot(x = df['pd_cat3'], y = df['Purchase'])
+plt.title('Product_category_3 vs Purchased')
+plt.show()
+
+# City Category Pie Chart
+plt.pie(df['City_Category'].value_counts(), labels=['A', 'B', 'C'], autopct = '%1.1f%%')
+plt.show()
+
+# Check for more possible plots
+# Occupation VS Purchased
+plt.figure()
+sns.histplot(x = df['Occupation'], y = df['Purchase'])
+plt.title('Occupation vs Purchase')
+plt.show()
+
+# Gender vs Occupation
+plt.figure()
+sns.histplot(x = df['Gender'], y = df['Occupation'])
+plt.title('Gender vs Occupation')
+plt.show()
+
+# City_Category vs Purchase
+plt.figure()
+sns.histplot(x = df['City_Category'], y = df['Purchase'])
+plt.title('City_Category vs Purchase')
+plt.show()
+
+# Gender vs Purchase
+plt.figure()
+sns.histplot(x = df['Gender'], y = df['Purchase'])
+plt.title('Gender vs Purchase')
+plt.show()
+
+# Purchase vs Product (1,2,3)
+plt.figure(figsize = (10, 8))
+sns.histplot(x = 'variable', y = 'value', data = pd.melt(df[['pd_cat1', 'pd_cat2', 'pd_cat3']]))
+plt.title('Purchase vs Product (1,2,3)')
+plt.show()
